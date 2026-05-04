@@ -1,0 +1,14 @@
+name: dddflutter
+description: Flutter DDD (Domain Driven Design) project template with clean architecture structure
+repository: https://github.com/your-user/dddflutter-brick
+version: 0.1.0
+
+environment:
+  mason: ">=0.1.0-dev.52 <0.2.0"
+
+vars:
+  project_name:
+    type: string
+    description: The project name (used for imports)
+    default: my_app
+    prompt: What is the project name?
