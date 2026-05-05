@@ -1,7 +1,7 @@
 name: dddflutter
-description: Flutter DDD (Domain Driven Design) project template with clean architecture structure
+description: Flutter DDD (Domain Driven Design) project template with clean architecture structure, Riverpod providers, and go_router
 repository: https://github.com/your-user/dddflutter-brick
-version: 0.1.0
+version: 0.2.0
 
 environment:
   mason: ">=0.1.0-dev.52 <0.2.0"
@@ -12,3 +12,16 @@ vars:
     description: The project name (used for imports)
     default: my_app
     prompt: What is the project name?
+  description:
+    type: string
+    description: Project description
+    default: "A new Flutter project."
+    prompt: What is the project description?
+  app_title:
+    type: string
+    description: App display title
+    default: My App
+    prompt: What is the app display title?
+
+hooks:
+  post_gen: post_gen.dart

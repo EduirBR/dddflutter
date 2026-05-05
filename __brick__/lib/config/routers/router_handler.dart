@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-/// Add a route (no authentication check)
+// TODO: Import your auth provider here
+// import 'package:{{project_name}}/presentation/providers/auth/auth_provider.dart';
+
+/// Add a view for any user (no authentication check)
 RouteBase addRoute({
   required String path,
   required String name,
@@ -24,7 +27,7 @@ RouteBase addRoute({
   );
 }
 
-/// Custom transition for routes
+/// Transition build if needed
 CustomTransitionPage<dynamic> customTransitionBuild(Widget view) {
   return CustomTransitionPage(
     transitionDuration: Duration.zero,
@@ -37,6 +40,7 @@ CustomTransitionPage<dynamic> customTransitionBuild(Widget view) {
 }
 
 /// Add a public route (only accessible when NOT authenticated)
+/// If user is authenticated, redirects to home
 RouteBase addPublicRoute({
   required String path,
   required String name,
@@ -51,7 +55,9 @@ RouteBase addPublicRoute({
     path: path,
     routes: childRoutes,
     redirect: (context, state) {
-      if (isAuthenticated()) return redirectTo;
+      if (isAuthenticated()) {
+        return redirectTo;
+      }
       return null;
     },
     pageBuilder:
@@ -66,6 +72,7 @@ RouteBase addPublicRoute({
 }
 
 /// Add a private route (only accessible when authenticated)
+/// If user is NOT authenticated, redirects to login
 RouteBase addPrivateRoute({
   required String path,
   required String name,
@@ -80,7 +87,9 @@ RouteBase addPrivateRoute({
     path: path,
     routes: childRoutes,
     redirect: (context, state) {
-      if (!isAuthenticated()) return redirectTo;
+      if (!isAuthenticated()) {
+        return redirectTo;
+      }
       return null;
     },
     pageBuilder:
