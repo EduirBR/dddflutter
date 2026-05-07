@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:{{project_name}}/domain/entities/example_model.dart';
-import 'package:{{project_name}}/domain/repositories/example_repository.dart';
+import 'package:{{project_name}}/domain/repositories/auth_repository.dart';
 import 'package:{{project_name}}/presentation/providers/auth/auth_repository_provider.dart';
 import 'package:{{project_name}}/presentation/providers/general/secure_storage_provider.dart';
 import 'package:{{project_name}}/presentation/services/notification_service.dart';
@@ -11,7 +11,7 @@ final authProvider = NotifierProvider<AuthProviderNotifier, AuthState>(
 
 class AuthProviderNotifier extends Notifier<AuthState> {
   late final SecureStorageService _secureStorageService;
-  late final ExampleRepository _authRepository;
+  late final AuthRepository _authRepository;
 
   @override
   AuthState build() {
@@ -32,16 +32,11 @@ class AuthProviderNotifier extends Notifier<AuthState> {
 
   Future<void> getUserData() async {
     try {
-      final response = await _authRepository.getAll();
-      if (response.error) {
-        state = state.copyWith(
-          status: AuthStatus.unauthenticated,
-          errorMessage: response.message,
-        );
-      } else {
-        final user = ExampleModel.fromJson(response.data!);
-        state = state.copyWith(status: AuthStatus.authenticated, user: user);
-      }
+      // TODO: implement get user data from API
+      // You should create a separate UserRepository for this
+      await Future.delayed(const Duration(milliseconds: 500));
+      final user = ExampleModel(name: 'User');
+      state = state.copyWith(status: AuthStatus.authenticated, user: user);
     } catch (e) {
       state = state.copyWith(
         status: AuthStatus.unauthenticated,
